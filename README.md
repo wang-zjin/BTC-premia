@@ -13,27 +13,27 @@ Keywords: 'Risk Premium', 'Equity Premium', 'Variance Risk Premium', 'Pricing Ke
 
 ```
 
-# BTC risk premium codes framework
-
-## Data cleaning
-
-### Scrab raw data and transform to csv
-
-### Merge data from different source and time span
+## BTC risk premium codes framework
 
 ### Data cleaning
 
-## Summary statistics
+- Scrab raw data and transform to csv
 
-### Option transaction, quantity, volume
+- Merge data from different source and time span
 
-### IV, moneyness, tau
+- Data cleaning
 
-### BTC daily prices, returns
+### Summary statistics
 
-## Q density estimation
+- Option transaction, quantity, volume
 
-### Outline:
+- IV, moneyness, tau
+
+- BTC daily prices, returns
+
+### Q density estimation
+
+*Outline*:
 
 Direct estimation + Interpolation
 
@@ -49,41 +49,41 @@ Direct estimation + Interpolation
 
 		- Q density
 
-## Clustering
+### Clustering
 
-### [x] Multivariate Q clustering
+- [x] Multivariate Q clustering
 
-- CLR
+>- CLR
 
-### [ ] Univeriate Q clustering
+- [ ] Univeriate Q clustering
 
-## P density estimation
+### P density estimation
 
-### Full sample rescale
+#### Full sample rescale
 
 - Full sample span:
 
-2011-2022, 2014-2022 or 2015-2022
+2011-2022, *2014-2022* or 2015-2022
 
 - Rescale: 
 
-Non-rescale, Mean-only rescale, Variance-only rescale or Mean-and-variance rescale
+Non-rescale, Mean-only rescale, *Variance-only rescale* or Mean-and-variance rescale
 
-### Estimation methods
+#### Estimation methods
 
 - [x] Histogram
 
 - [ ] KDE
 
-## BVIX
+### BVIX
 
-### Input: orderbook option
+- Input: orderbook option
 
-### Output: one timeseries for each tau
+- Output: one timeseries for each tau
 
-## Risk premium
+### Risk premium
 
-### BP
+#### BP
 
 - mu_P - mu_Q
 
@@ -97,7 +97,7 @@ Non-rescale, Mean-only rescale, Variance-only rescale or Mean-and-variance resca
 
 	- SCA
 
-### VRP
+#### VRP
 
 - Var_P - Var_Q
 
@@ -105,9 +105,9 @@ Non-rescale, Mean-only rescale, Variance-only rescale or Mean-and-variance resca
 
 	- P: sample or density moment
 
-## Option return
+### Option return
 
-### Simple hold-until-maturity returns
+- Simple hold-until-maturity returns
 
-### Delta-hedge returns
+- Delta-hedge returns
 
