@@ -1,6 +1,0 @@
-Cluster,Group,Equally_Average,Weighted_Average,Median_Return,Std_Dev,Max,Min,Num_obs
-Long Put simple Cluster0,"(-Inf,-0.6]",-100,-100,-100,0,-100,-100,49
-Long Put simple Cluster0,"(-0.6,-0.05]",-65.06,-56.99,-100,112.98,372.15,-100,1050
-Long Put simple Cluster0,"(-0.05,0.05]",-7.71,13.81,-100,132.57,312.97,-100,254
-Long Put simple Cluster0,"(0.05,0.6]",-58.81,30.8,-92.08,84.32,191.95,-100,27
-Long Put simple Cluster0,"(0.6, Inf)",-24.31,-24.31,-24.31,NA,-24.31,-24.31,1

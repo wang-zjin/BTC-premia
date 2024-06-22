@@ -1,0 +1,6 @@
+Cluster,Group,Equally_Average,Weighted_Average,Median_Return,Std_Dev,Max,Min,Num_obs
+Long Put DH Overall,"(-Inf,0.2]",-6.36,-5.74,-8.34,11.61,15.68,-36.56,1426
+Long Put DH Overall,"(0.2,0.35]",-3.55,-4.39,-4.45,10.33,19.94,-22.33,597
+Long Put DH Overall,"(0.35,0.65]",-3.83,-4.58,-4.34,7.52,16.98,-14.49,599
+Long Put DH Overall,"(0.65,0.8]",-2.93,-0.47,-2.94,3.57,0.53,-9.13,10
+Long Put DH Overall,"(0.8, Inf)",0.35,0.65,0.63,0.93,3.07,-3.07,105

@@ -1,6 +1,0 @@
-Cluster,Group,Equally_Average,Weighted_Average,Median_Return,Std_Dev,Max,Min,Num_obs
-Long Straddle DH Cluster1,"(-Inf,-0.6]",NA,NA,NA,NA,NA,NA,NA
-Long Straddle DH Cluster1,"(-0.6,-0.2]",-45.88,-40.27,-62.32,33.7,-7.12,-68.22,3
-Long Straddle DH Cluster1,"(-0.2,0.2]",-25.06,-31.75,-47.09,77.49,233.94,-91.06,26
-Long Straddle DH Cluster1,"(0.2,0.6]",-67.23,-50.98,-75.2,23.62,-38.89,-91.88,5
-Long Straddle DH Cluster1,"(0.6, Inf)",-49.54,-49.54,-49.54,NA,-49.54,-49.54,1

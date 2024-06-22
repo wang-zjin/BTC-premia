@@ -1,6 +1,0 @@
-Cluster,Group,Equally_Average,Weighted_Average,Median_Return,Std_Dev,Max,Min,Num_obs
-Long Put DH Cluster1,"(-Inf,-0.6]",-5.41,-4.6,-6.45,3.86,11.81,-6.54,23
-Long Put DH Cluster1,"(-0.6,-0.05]",1.85,1.03,-3.3,10.83,22.47,-9.98,922
-Long Put DH Cluster1,"(-0.05,0.05]",-1.48,-2.57,-5.86,8.46,18.3,-7.84,284
-Long Put DH Cluster1,"(0.05,0.6]",-1.86,-1.8,-1.22,1.95,3.23,-4.56,60
-Long Put DH Cluster1,"(0.6, Inf)",2.83,2.51,4.78,3.11,5.37,-17.62,161

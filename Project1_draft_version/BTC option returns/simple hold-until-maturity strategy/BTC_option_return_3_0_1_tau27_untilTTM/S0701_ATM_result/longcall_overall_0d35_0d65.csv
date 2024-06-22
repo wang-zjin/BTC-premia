@@ -1,0 +1,6 @@
+Cluster,Group,Equally_Average,Weighted_Average,Median_Return,Std_Dev,Max,Min,Num_obs
+Long Call simple Overall,"(0.8, Inf)",28.97,28.42,35.21,52.01,152.62,-58.18,158
+Long Call simple Overall,"(0.65,0.8]",-45.04,5.1,-82.02,83.43,176.98,-100,119
+Long Call simple Overall,"(0.35,0.65]",-8.49,-51.93,-100,136.84,484.32,-100,1071
+Long Call simple Overall,"(0.2,0.35]",-45.79,-60.42,-100,175.92,667.91,-100,816
+Long Call simple Overall,"(-Inf,0.2]",-84.05,-92.74,-100,89.95,613.46,-100,1716
