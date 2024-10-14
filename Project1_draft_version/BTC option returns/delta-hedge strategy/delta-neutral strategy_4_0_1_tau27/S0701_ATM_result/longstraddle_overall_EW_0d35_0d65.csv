@@ -1,6 +1,0 @@
-Cluster,Group,Equally_Average,Weighted_Average,Median_Return,Std_Dev,Max,Min,Num_obs
-Long Straddle DH Overall,"(-Inf,0.2]",-27.88,-68.05,-97.76,189.65,476.98,-98.86,9
-Long Straddle DH Overall,"(0.2,0.35]",-82.06,-87.71,-80.05,14.05,-68.51,-99.64,4
-Long Straddle DH Overall,"(0.35,0.65]",-17.96,-56.46,-32.73,66.28,150.49,-96.74,28
-Long Straddle DH Overall,"(0.65,0.8]",-65.68,-71.47,-68.38,28.17,-8.7,-96.77,11
-Long Straddle DH Overall,"(0.8, Inf)",-85.78,-83.91,-89.01,12.96,-57.37,-98.71,15

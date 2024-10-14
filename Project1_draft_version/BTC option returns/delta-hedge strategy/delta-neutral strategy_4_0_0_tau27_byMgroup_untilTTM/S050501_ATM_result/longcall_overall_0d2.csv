@@ -1,0 +1,6 @@
+Cluster,Group,Equally_Average,Weighted_Average,Median_Return,Std_Dev,Max,Min,Num_obs
+Long Call DH Overall,"(-Inf,-0.6]",-1.97,-1.85,-1.97,0.48,-1.62,-2.31,2
+Long Call DH Overall,"(-0.6,-0.2]",-3.71,-3.79,-3.86,1.93,1.31,-5.47,101
+Long Call DH Overall,"(-0.2,0.2]",-5.61,-10.03,-5.5,10.91,25.82,-24.77,1970
+Long Call DH Overall,"(0.2,0.6]",-5.72,-7.25,-0.12,13.52,27.07,-28.35,1509
+Long Call DH Overall,"(0.6, Inf)",-11.08,-10.07,-15.41,10.56,26.6,-27.33,300

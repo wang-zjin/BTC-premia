@@ -1,0 +1,6 @@
+Cluster,Group,Equally_Average,Weighted_Average,Median_Return,Std_Dev,Max,Min,Num_obs
+Long Put simple Overall,"(-Inf,-0.6]",-100,-100,-100,0,-100,-100,72
+Long Put simple Overall,"(-0.6,-0.05]",-81.4,-75.78,-100,84.25,372.15,-100,1972
+Long Put simple Overall,"(-0.05,0.05]",-31.87,-25.58,-59.39,98.67,312.97,-100,538
+Long Put simple Overall,"(0.05,0.6]",-38.75,15.31,-50.33,56.79,191.95,-100,87
+Long Put simple Overall,"(0.6, Inf)",4.34,3.69,4.83,3.4,5.37,-24.31,162

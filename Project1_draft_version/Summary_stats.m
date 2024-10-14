@@ -337,6 +337,978 @@ Tbl_put = array2table(tbl_put,'VariableNames',X_labels,'RowNames',Y_labels);
 writetable(Tbl_put,"Summary_stats/1_3_5/option_characteristics_volume_put.csv")
 
 
+% % % % % %% number of transaction, quantity and volume overtime
+% % % % % [unique_date, ~, idx_date] = unique(string(option.date));
+% % % % % volume_daily = accumarray(idx_date, option.option_price.*option.quantity, [], @sum);
+% % % % % quantity_daily = accumarray(idx_date, option.quantity, [], @sum);
+% % % % % transaction_daily = accumarray(idx_date, ones(size(option.option_price)), [], @sum);
+% % % % % 
+% % % % % % daily value
+% % % % % figure;
+% % % % % plot(datetime(unique_date),volume_daily)
+% % % % % dateaxis('x',12)
+% % % % % title('BTC options value')
+% % % % % ylabel('Daily trading value (quantity \times option price)')
+% % % % % xticks(datetime(unique_date(round(linspace(1,1996,10)))));
+% % % % % xticklabels(datestr(unique_date(round(linspace(1,1996,10))),'mmmyy'))
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_volume.png")
+% % % % % % daily quantity
+% % % % % plot(datetime(unique_date),quantity_daily)
+% % % % % dateaxis('x',12)
+% % % % % title('BTC options quantity')
+% % % % % ylabel('Daily trading quantity')
+% % % % % xticks(datetime(unique_date(round(linspace(1,1996,10)))));
+% % % % % xticklabels(datestr(unique_date(round(linspace(1,1996,10))),'mmmyy'))
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_quantity.png")
+% % % % % % daily transaction
+% % % % % plot(datetime(unique_date),transaction_daily)
+% % % % % dateaxis('x',12)
+% % % % % title('BTC options transaction')
+% % % % % ylabel('Daily number of transaction')
+% % % % % xticks(datetime(unique_date(round(linspace(1,1996,10)))));
+% % % % % xticklabels(datestr(unique_date(round(linspace(1,1996,10))),'mmmyy'))
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_transaction.png")
+% % % % % 
+% % % % % % unique month & days in each month
+% % % % % [unique_month, ~, idx_month] = unique(string(datestr(option.date,'yyyymm')));
+% % % % % daysInMonth = eomday(year(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd')), month(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd')));
+% % % % % daysInMonth(end)=17;
+% % % % % 
+% % % % % % daily average volume
+% % % % % volume_average_daily = accumarray(idx_month, option.option_price.*option.quantity, [], @sum);
+% % % % % volume_average_daily = volume_average_daily ./ daysInMonth;
+% % % % % bar(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd'), volume_average_daily)
+% % % % % ylabel('Daily average option value (quantity \times option price)')
+% % % % % title('BTC options value')
+% % % % % xticks(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % xticklabels(datestr(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'),'mmmyy'))
+% % % % % dateaxis('x',12)
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_average_volume.png")
+% % % % % 
+% % % % % % daily average quantity
+% % % % % quantity_average_daily = accumarray(idx_month, option.quantity, [], @sum);
+% % % % % quantity_average_daily = quantity_average_daily ./ daysInMonth;
+% % % % % bar(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd'), quantity_average_daily)
+% % % % % ylabel('Daily average option quantity')
+% % % % % title('BTC options quantity')
+% % % % % xticks(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % xticklabels(datestr(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'),'mmmyy'))
+% % % % % dateaxis('x',12)
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_average_quantity.png")
+% % % % % 
+% % % % % % daily average transaction
+% % % % % transaction_average_daily = accumarray(idx_month, ones(size(option.option_price)), [], @sum);
+% % % % % transaction_average_daily = transaction_average_daily ./ daysInMonth;
+% % % % % bar(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd'), transaction_average_daily)
+% % % % % ylabel('Daily average option transaction')
+% % % % % title('BTC options transaction')
+% % % % % xticks(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % xticklabels(datestr(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'),'mmmyy'))
+% % % % % dateaxis('x',12)
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_average_transaction.png")
+% % % % % 
+% % % % % %% numberof transaction, quantity and volume overtime  --  CALL OPTION
+% % % % % [unique_date_call, ~, idx_date_call] = unique(string(option_call.date));
+% % % % % volume_daily = accumarray(idx_date_call, option_call.option_price.*option_call.quantity, [], @sum);
+% % % % % quantity_daily = accumarray(idx_date_call, option_call.quantity, [], @sum);
+% % % % % transaction_daily = accumarray(idx_date_call, ones(size(option_call.option_price)), [], @sum);
+% % % % % 
+% % % % % % daily value
+% % % % % figure;
+% % % % % plot(datetime(unique_date_call),volume_daily)
+% % % % % dateaxis('x',12)
+% % % % % title('BTC call options value')
+% % % % % ylabel('Daily trading value (quantity \times option price)')
+% % % % % xticks(datetime(unique_date_call(round(linspace(1,1996,10)))));
+% % % % % xticklabels(datestr(unique_date_call(round(linspace(1,1996,10))),'mmmyy'))
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_volume_call.png")
+% % % % % % daily quantity
+% % % % % plot(datetime(unique_date_call),quantity_daily)
+% % % % % dateaxis('x',12)
+% % % % % title('BTC call options quantity')
+% % % % % ylabel('Daily trading quantity')
+% % % % % xticks(datetime(unique_date_call(round(linspace(1,1996,10)))));
+% % % % % xticklabels(datestr(unique_date_call(round(linspace(1,1996,10))),'mmmyy'))
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_quantity_call.png")
+% % % % % % daily transaction
+% % % % % plot(datetime(unique_date_call),transaction_daily)
+% % % % % dateaxis('x',12)
+% % % % % title('BTC call options transaction')
+% % % % % ylabel('Daily number of transaction')
+% % % % % xticks(datetime(unique_date_call(round(linspace(1,1996,10)))));
+% % % % % xticklabels(datestr(unique_date_call(round(linspace(1,1996,10))),'mmmyy'))
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_transaction_call.png")
+% % % % % 
+% % % % % % unique month & days in each month
+% % % % % [unique_month, ~, idx_month] = unique(string(datestr(option_call.date,'yyyymm')));
+% % % % % daysInMonth = eomday(year(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd')), month(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd')));
+% % % % % daysInMonth(end)=17;
+% % % % % 
+% % % % % % daily average volume
+% % % % % volume_average_daily = accumarray(idx_month, option_call.option_price.*option_call.quantity, [], @sum);
+% % % % % volume_average_daily = volume_average_daily ./ daysInMonth;
+% % % % % bar(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd'), volume_average_daily)
+% % % % % ylabel('Daily average option value (quantity \times option price)')
+% % % % % title('BTC call options value')
+% % % % % xticks(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % xticklabels(datestr(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'),'mmmyy'))
+% % % % % dateaxis('x',12)
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_average_volume_call.png")
+% % % % % 
+% % % % % % daily average volume
+% % % % % quantity_average_daily = accumarray(idx_month, option_call.quantity, [], @sum);
+% % % % % quantity_average_daily = quantity_average_daily ./ daysInMonth;
+% % % % % bar(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd'), quantity_average_daily)
+% % % % % ylabel('Daily average option quantity')
+% % % % % title('BTC call options quantity')
+% % % % % xticks(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % xticklabels(datestr(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'),'mmmyy'))
+% % % % % dateaxis('x',12)
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_average_quantity_call.png")
+% % % % % 
+% % % % % % daily average transaction
+% % % % % transaction_average_daily = accumarray(idx_month, ones(size(option_call.option_price)), [], @sum);
+% % % % % transaction_average_daily = transaction_average_daily ./ daysInMonth;
+% % % % % bar(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd'), transaction_average_daily)
+% % % % % ylabel('Daily average option transaction')
+% % % % % title('BTC call options transaction')
+% % % % % xticks(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % xticklabels(datestr(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'),'mmmyy'))
+% % % % % dateaxis('x',12)
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_average_transaction_call.png")
+% % % % % 
+% % % % % %% numberof transaction, quantity and volume overtime  --  PUT OPTION
+% % % % % [unique_date_put, ~, idx_date_put] = unique(string(option_put.date));
+% % % % % volume_daily = accumarray(idx_date_put, option_put.option_price.*option_put.quantity, [], @sum);
+% % % % % quantity_daily = accumarray(idx_date_put, option_put.quantity, [], @sum);
+% % % % % transaction_daily = accumarray(idx_date_put, ones(size(option_put.option_price)), [], @sum);
+% % % % % 
+% % % % % % daily value
+% % % % % plot(datetime(unique_date_put),volume_daily)
+% % % % % dateaxis('x',12)
+% % % % % title('BTC put options value')
+% % % % % ylabel('Daily trading value (quantity \times option price)')
+% % % % % xticks(datetime(unique_date_put(round(linspace(1,1996,10)))));
+% % % % % xticklabels(datestr(unique_date_put(round(linspace(1,1996,10))),'mmmyy'))
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_volume_put.png")
+% % % % % % daily quantity
+% % % % % plot(datetime(unique_date_put),quantity_daily)
+% % % % % dateaxis('x',12)
+% % % % % title('BTC put options quantity')
+% % % % % ylabel('Daily trading quantity')
+% % % % % xticks(datetime(unique_date_put(round(linspace(1,1996,10)))));
+% % % % % xticklabels(datestr(unique_date_put(round(linspace(1,1996,10))),'mmmyy'))
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_quantity_put.png")
+% % % % % % daily transaction
+% % % % % plot(datetime(unique_date_put),transaction_daily)
+% % % % % dateaxis('x',12)
+% % % % % title('BTC put options transaction')
+% % % % % ylabel('Daily number of transaction')
+% % % % % xticks(datetime(unique_date_put(round(linspace(1,1996,10)))));
+% % % % % xticklabels(datestr(unique_date_put(round(linspace(1,1996,10))),'mmmyy'))
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_transaction_put.png")
+% % % % % 
+% % % % % % unique month & days in each month
+% % % % % [unique_month, ~, idx_month] = unique(string(datestr(option_put.date,'yyyymm')));
+% % % % % daysInMonth = eomday(year(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd')), month(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd')));
+% % % % % daysInMonth(end)=17;
+% % % % % 
+% % % % % % daily average value
+% % % % % volume_average_daily = accumarray(idx_month, option_put.option_price.*option_put.quantity, [], @sum);
+% % % % % volume_average_daily = volume_average_daily ./ daysInMonth;
+% % % % % bar(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd'), volume_average_daily)
+% % % % % ylabel('Daily average option value (quantity \times option price)')
+% % % % % title('BTC put options value')
+% % % % % xticks(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % xticklabels(datestr(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'),'mmmyy'))
+% % % % % dateaxis('x',12)
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_average_volume_put.png")
+% % % % % 
+% % % % % % daily average volume
+% % % % % quantity_average_daily = accumarray(idx_month, option_put.quantity, [], @sum);
+% % % % % quantity_average_daily = quantity_average_daily ./ daysInMonth;
+% % % % % bar(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd'), quantity_average_daily)
+% % % % % ylabel('Daily average option quantity')
+% % % % % title('BTC put options quantity')
+% % % % % xticks(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % xticklabels(datestr(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'),'mmmyy'))
+% % % % % dateaxis('x',12)
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_average_quantity_put.png")
+% % % % % 
+% % % % % % daily average transaction
+% % % % % transaction_average_daily = accumarray(idx_month, ones(size(option_put.option_price)), [], @sum);
+% % % % % transaction_average_daily = transaction_average_daily ./ daysInMonth;
+% % % % % bar(datetime(strcat(unique_month,'01'),'InputFormat','uuuuMMdd'), transaction_average_daily)
+% % % % % ylabel('Daily average option transaction')
+% % % % % title('BTC put options transaction')
+% % % % % xticks(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % xticklabels(datestr(datetime(strcat(unique_month(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'),'mmmyy'))
+% % % % % dateaxis('x',12)
+% % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_average_transaction_put.png")
+% % % % % 
+% % % % % %% 2-by-2 quantity, transaction and value PREPARE
+% % % % % [~, ~, idx_month] = unique(string(datestr(option.date,'yyyymm')));
+% % % % % 
+% % % % % quantity_average_daily = accumarray(idx_month, option.quantity, [], @sum);
+% % % % % quantity_average_daily = quantity_average_daily ./ daysInMonth;
+% % % % % transaction_average_daily = accumarray(idx_month, ones(size(option.option_price)), [], @sum);
+% % % % % transaction_average_daily = transaction_average_daily ./ daysInMonth;
+% % % % % volume_average_daily = accumarray(idx_month, option.option_price.*option.quantity, [], @sum);
+% % % % % volume_average_daily = volume_average_daily ./ daysInMonth;
+% % % % % 
+% % % % % option_1week = option(((option.tau>=0) & (option.tau<=9)), :);
+% % % % % [uniqueDates_1week, ~, idx_1week] = unique(string(datestr(option_1week.date,'yyyymm')));
+% % % % % option_1to3week = option(((option.tau>9) & (option.tau<27)), :);
+% % % % % [uniqueDates_1to3week, ~, idx_1to3week] = unique(string(datestr(option_1to3week.date,'yyyymm')));
+% % % % % option_4week = option(((option.tau>=27) & (option.tau<=33)), :);
+% % % % % [uniqueDates_4week, ~, idx_4week] = unique(string(datestr(option_4week.date,'yyyymm')));
+% % % % % option_longmaturity = option(((option.tau>33)), :);
+% % % % % [uniqueDates_longmaturity, ~, idx_longmaturity] = unique(string(datestr(option_longmaturity.date,'yyyymm')));
+% % % % % %% 2-by-2 quantity across time with different tau
+% % % % % 
+% % % % % % 1week
+% % % % % quantity_1week = accumarray(idx_1week, option_1week.quantity, [], @sum);
+% % % % % quantity_average_1week = quantity_1week ./ daysInMonth;
+% % % % % subplot(2,2,1)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1week./quantity_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of all BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily quantity')
+% % % % % title('BTC 1-week tau options')
+% % % % % xticks(datetime(strcat(uniqueDates_1week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 1 to 3 weeks: 9<tau<27
+% % % % % quantity_1to3week = accumarray(idx_1to3week, option_1to3week.quantity, [], @sum);
+% % % % % quantity_average_1to3week = quantity_1to3week ./ daysInMonth;
+% % % % % subplot(2,2,2)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1to3week./quantity_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of all BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1to3week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1to3week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC 1-to-3week-maturity options')
+% % % % % xticks(datetime(strcat(uniqueDates_1to3week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 4week
+% % % % % quantity_4week = accumarray(idx_4week, option_4week.quantity, [], @sum);
+% % % % % quantity_average_4week = quantity_4week ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,3)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), quantity_average_4week./quantity_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of all BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), quantity_average_4week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), quantity_average_4week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC 4-week options')
+% % % % % xticks(datetime(strcat(uniqueDates_4week(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % more than 4 weeks: 33<tau
+% % % % % quantity_longmaturity = accumarray(idx_longmaturity, option_longmaturity.quantity, [], @sum);
+% % % % % quantity_average_longmaturity = quantity_longmaturity ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,4)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), quantity_average_longmaturity./quantity_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of all BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), quantity_average_longmaturity, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), quantity_average_longmaturity, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC longmaturity options')
+% % % % % xticks(datetime(strcat(uniqueDates_longmaturity(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % set(gcf,'Position',[100,100,1200,900])
+% % % % % sgtitle("Volumn and percentage of overall options")
+% % % % % saveas(gcf,"Summary_stats/1_3_5/quantity_and_percentage_overall.png")
+% % % % % 
+% % % % % %% 2-by-2 transaction across time with different tau
+% % % % % % 1week
+% % % % % transaction_1week = accumarray(idx_1week, ones(size(option_1week.quantity)), [], @sum);
+% % % % % transaction_average_1week = transaction_1week ./ daysInMonth;
+% % % % % figure;
+% % % % % subplot(2,2,1)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1week./transaction_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % % ylabel('Percentage of all BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily transactions','FontSize',20)
+% % % % % title('BTC 1-week options','FontSize',20)
+% % % % % xticks([datetime(strcat(uniqueDates_1week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 1 to 3 weeks
+% % % % % transaction_1to3week = accumarray(idx_1to3week, ones(size(option_1to3week.quantity)), [], @sum);
+% % % % % transaction_average_1to3week = transaction_1to3week ./ daysInMonth;
+% % % % % subplot(2,2,2)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1to3week./transaction_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of transaction','FontSize',20)
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1to3week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1to3week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % % ylabel('Average daily transactions')
+% % % % % title('BTC 1-to-3week-maturity options','FontSize',20)
+% % % % % xticks([datetime(strcat(uniqueDates_1to3week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 4week
+% % % % % transaction_4week = accumarray(idx_4week, ones(size(option_4week.quantity)), [], @sum);
+% % % % % transaction_average_4week = transaction_4week ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,3)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), transaction_average_4week./transaction_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % % ylabel('Percentage of all BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), transaction_average_4week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), transaction_average_4week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % xlabel('Date','FontSize',15)
+% % % % % ylabel('Average daily transactions','FontSize',20)
+% % % % % title('BTC 4-week options','FontSize',20)
+% % % % % xticks(datetime(strcat(uniqueDates_4week(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % long maturity
+% % % % % transaction_longmaturity = accumarray(idx_longmaturity, ones(size(option_longmaturity.quantity)), [], @sum);
+% % % % % transaction_average_longmaturity = transaction_longmaturity ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,4)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), transaction_average_longmaturity./transaction_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of transaction','FontSize',20)
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), transaction_average_longmaturity , '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), transaction_average_longmaturity , 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % % ylabel('Average daily transactions')
+% % % % % title('BTC longmaturity-maturity options','FontSize',20)
+% % % % % xticks([datetime(strcat(uniqueDates_longmaturity(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % xlabel('Date','FontSize',15)
+% % % % % dateaxis('x',12)
+% % % % % set(gcf,'Position',[100,100,1200,900])
+% % % % % % sgtitle("Transaction and percentage of overall options")
+% % % % % saveas(gcf,"Summary_stats/1_3_5/transaction_and_percentage_overall.png")
+% % % % % 
+% % % % % %% 2-by-2 value across time with different tau
+% % % % % % 1week
+% % % % % volume_1week = accumarray(idx_1week, option_1week.quantity.*option_1week.option_price, [], @sum);
+% % % % % volume_average_1week = volume_1week ./ daysInMonth;
+% % % % % % figure;
+% % % % % subplot(2,2,1)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), volume_average_1week./volume_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of all BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), volume_average_1week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), volume_average_1week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC 1-week options')
+% % % % % xticks([datetime(strcat(uniqueDates_1week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 1 to 3 weeks
+% % % % % volume_1to3week = accumarray(idx_1to3week, option_1to3week.quantity.*option_1to3week.option_price, [], @sum);
+% % % % % volume_average_1to3week = volume_1to3week ./ daysInMonth;
+% % % % % subplot(2,2,2)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), volume_average_1to3week./volume_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of all BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), volume_average_1to3week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), volume_average_1to3week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC 1-to-3week-maturity options')
+% % % % % xticks([datetime(strcat(uniqueDates_1to3week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 4week
+% % % % % volume_4week = accumarray(idx_4week, option_4week.quantity.*option_4week.option_price, [], @sum);
+% % % % % volume_average_4week = volume_4week ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,3)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), volume_average_4week./volume_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of all BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), volume_average_4week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), volume_average_4week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC 4-week options')
+% % % % % xticks(datetime(strcat(uniqueDates_4week(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % long maturity
+% % % % % volume_longmaturity = accumarray(idx_longmaturity, option_longmaturity.quantity.*option_longmaturity.option_price, [], @sum);
+% % % % % volume_average_longmaturity = volume_longmaturity ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,4)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), volume_average_longmaturity./volume_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of all BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), volume_average_longmaturity , '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), volume_average_longmaturity , 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily value')
+% % % % % title('BTC longmaturity-maturity options')
+% % % % % xticks([datetime(strcat(uniqueDates_longmaturity(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % sgtitle("Value and percentage overall options")
+% % % % % set(gcf,'Position',[100,100,1200,900])
+% % % % % saveas(gcf,"Summary_stats/1_3_5/volume_and_percentage_overall.png")
+% % % % % 
+% % % % % %% 2-by-2 quantity, transaction and value PREPARE -- CALL OPTION
+% % % % % [~, ~, idx_month_call] = unique(string(datestr(option_call.date,'yyyymm')));
+% % % % % 
+% % % % % quantity_average_daily = accumarray(idx_month_call, option_call.quantity, [], @sum);
+% % % % % quantity_average_daily = quantity_average_daily ./ daysInMonth;
+% % % % % transaction_average_daily = accumarray(idx_month_call, ones(size(option_call.option_price)), [], @sum);
+% % % % % transaction_average_daily = transaction_average_daily ./ daysInMonth;
+% % % % % volume_average_daily = accumarray(idx_month_call, option_call.option_price.*option_call.quantity, [], @sum);
+% % % % % volume_average_daily = volume_average_daily ./ daysInMonth;
+% % % % % 
+% % % % % option_call_1week = option_call(((option_call.tau>=0) & (option_call.tau<=9)), :);
+% % % % % [uniqueDates_1week, ~, idx_1week] = unique(string(datestr(option_call_1week.date,'yyyymm')));
+% % % % % option_call_1to3week = option_call(((option_call.tau>9) & (option_call.tau<27)), :);
+% % % % % [uniqueDates_1to3week, ~, idx_1to3week] = unique(string(datestr(option_call_1to3week.date,'yyyymm')));
+% % % % % option_call_4week = option_call(((option_call.tau>=27) & (option_call.tau<=33)), :);
+% % % % % [uniqueDates_4week, ~, idx_4week] = unique(string(datestr(option_call_4week.date,'yyyymm')));
+% % % % % option_call_longmaturity = option_call(((option_call.tau>33)), :);
+% % % % % [uniqueDates_longmaturity, ~, idx_longmaturity] = unique(string(datestr(option_call_longmaturity.date,'yyyymm')));
+% % % % % %% 2-by-2 quantity across time with different tau -- CALL OPTION
+% % % % % 
+% % % % % % 1week
+% % % % % quantity_1week = accumarray(idx_1week, option_call_1week.quantity, [], @sum);
+% % % % % quantity_average_1week = quantity_1week ./ daysInMonth;
+% % % % % % figure;
+% % % % % subplot(2,2,1)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1week./quantity_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily quantity')
+% % % % % title('BTC 1-week tau call options')
+% % % % % xticks(datetime(strcat(uniqueDates_1week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 1 to 3 weeks: 9<tau<27
+% % % % % quantity_1to3week = accumarray(idx_1to3week, option_call_1to3week.quantity, [], @sum);
+% % % % % quantity_average_1to3week = quantity_1to3week ./ daysInMonth;
+% % % % % subplot(2,2,2)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1to3week./quantity_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1to3week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1to3week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily quantity')
+% % % % % title('BTC 1-to-3week-maturity call options')
+% % % % % xticks(datetime(strcat(uniqueDates_1to3week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 4week
+% % % % % quantity_4week = accumarray(idx_4week, option_call_4week.quantity, [], @sum);
+% % % % % quantity_average_4week = quantity_4week ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,3)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), quantity_average_4week./quantity_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), quantity_average_4week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), quantity_average_4week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily quantity')
+% % % % % title('BTC 4-week call options')
+% % % % % xticks(datetime(strcat(uniqueDates_4week(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % more than 4 weeks: 33<tau
+% % % % % quantity_longmaturity = accumarray(idx_longmaturity, option_call_longmaturity.quantity, [], @sum);
+% % % % % quantity_average_longmaturity = quantity_longmaturity ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,4)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), quantity_average_longmaturity./quantity_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), quantity_average_longmaturity, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), quantity_average_longmaturity, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily quantity')
+% % % % % title('BTC longmaturity call options')
+% % % % % xticks(datetime(strcat(uniqueDates_longmaturity(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % set(gcf,'Position',[100,100,1200,900])
+% % % % % sgtitle("Volumn and percentage of call options")
+% % % % % saveas(gcf,"Summary_stats/1_3_5/quantity_and_percentage_call.png")
+% % % % % 
+% % % % % %% 2-by-2 transaction across time with different tau -- CALL OPTION
+% % % % % % 1week
+% % % % % transaction_1week = accumarray(idx_1week, ones(size(option_call_1week.quantity)), [], @sum);
+% % % % % transaction_average_1week = transaction_1week ./ daysInMonth;
+% % % % % % figure;
+% % % % % subplot(2,2,1)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1week./transaction_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily transactions')
+% % % % % title('BTC 1-week call options')
+% % % % % xticks([datetime(strcat(uniqueDates_1week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 1 to 3 weeks
+% % % % % transaction_1to3week = accumarray(idx_1to3week, ones(size(option_call_1to3week.quantity)), [], @sum);
+% % % % % transaction_average_1to3week = transaction_1to3week ./ daysInMonth;
+% % % % % subplot(2,2,2)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1to3week./transaction_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1to3week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1to3week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily transactions')
+% % % % % title('BTC 1-to-3week-maturity call options')
+% % % % % xticks([datetime(strcat(uniqueDates_1to3week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 4week
+% % % % % transaction_4week = accumarray(idx_4week, ones(size(option_call_4week.quantity)), [], @sum);
+% % % % % transaction_average_4week = transaction_4week ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,3)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), transaction_average_4week./transaction_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), transaction_average_4week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), transaction_average_4week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily transactions')
+% % % % % title('BTC 4-week call options')
+% % % % % xticks(datetime(strcat(uniqueDates_4week(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % long maturity
+% % % % % transaction_longmaturity = accumarray(idx_longmaturity, ones(size(option_call_longmaturity.quantity)), [], @sum);
+% % % % % transaction_average_longmaturity = transaction_longmaturity ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,4)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), transaction_average_longmaturity./transaction_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), transaction_average_longmaturity , '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), transaction_average_longmaturity , 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily transactions')
+% % % % % title('BTC longmaturity-maturity call options')
+% % % % % xticks([datetime(strcat(uniqueDates_longmaturity(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % set(gcf,'Position',[100,100,1200,900])
+% % % % % sgtitle("Transaction and percentage of call options")
+% % % % % saveas(gcf,"Summary_stats/1_3_5/transaction_and_percentage_call.png")
+% % % % % 
+% % % % % %% 2-by-2 value across time with different tau -- CALL OPTION
+% % % % % % 1week
+% % % % % volume_1week = accumarray(idx_1week, option_call_1week.quantity.*option_call_1week.option_price, [], @sum);
+% % % % % volume_average_1week = volume_1week ./ daysInMonth;
+% % % % % % figure;
+% % % % % subplot(2,2,1)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), volume_average_1week./volume_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), volume_average_1week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), volume_average_1week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC 1-week call options')
+% % % % % xticks([datetime(strcat(uniqueDates_1week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 1 to 3 weeks
+% % % % % volume_1to3week = accumarray(idx_1to3week, option_call_1to3week.quantity.*option_call_1to3week.option_price, [], @sum);
+% % % % % volume_average_1to3week = volume_1to3week ./ daysInMonth;
+% % % % % subplot(2,2,2)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), volume_average_1to3week./volume_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), volume_average_1to3week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), volume_average_1to3week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC 1-to-3week-maturity call options')
+% % % % % xticks([datetime(strcat(uniqueDates_1to3week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 4week
+% % % % % volume_4week = accumarray(idx_4week, option_call_4week.quantity.*option_call_4week.option_price, [], @sum);
+% % % % % volume_average_4week = volume_4week ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,3)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), volume_average_4week./volume_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), volume_average_4week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), volume_average_4week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC 4-week call options')
+% % % % % xticks(datetime(strcat(uniqueDates_4week(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % long maturity
+% % % % % volume_longmaturity = accumarray(idx_longmaturity, option_call_longmaturity.quantity.*option_call_longmaturity.option_price, [], @sum);
+% % % % % volume_average_longmaturity = volume_longmaturity ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,4)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), volume_average_longmaturity./volume_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of call BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), volume_average_longmaturity , '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), volume_average_longmaturity , 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC longmaturity-maturity call options')
+% % % % % xticks([datetime(strcat(uniqueDates_longmaturity(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % set(gcf,'Position',[100,100,1200,900])
+% % % % % sgtitle("Value and percentage of call options")
+% % % % % saveas(gcf,"Summary_stats/1_3_5/volume_and_percentage_call.png")
+% % % % % 
+% % % % % 
+% % % % % %% 2-by-2 quantity, transaction and volume PREPARE -- PUT OPTION
+% % % % % [~, ~, idx_month_put] = unique(string(datestr(option_put.date,'yyyymm')));
+% % % % % 
+% % % % % quantity_average_daily = accumarray(idx_month_put, option_put.quantity, [], @sum);
+% % % % % quantity_average_daily = quantity_average_daily ./ daysInMonth;
+% % % % % transaction_average_daily = accumarray(idx_month_put, ones(size(option_put.option_price)), [], @sum);
+% % % % % transaction_average_daily = transaction_average_daily ./ daysInMonth;
+% % % % % volume_average_daily = accumarray(idx_month_put, option_put.option_price.*option_put.quantity, [], @sum);
+% % % % % volume_average_daily = volume_average_daily ./ daysInMonth;
+% % % % % 
+% % % % % option_put_1week = option_put(((option_put.tau>=0) & (option_put.tau<=9)), :);
+% % % % % [uniqueDates_1week, ~, idx_1week] = unique(string(datestr(option_put_1week.date,'yyyymm')));
+% % % % % option_put_1to3week = option_put(((option_put.tau>9) & (option_put.tau<27)), :);
+% % % % % [uniqueDates_1to3week, ~, idx_1to3week] = unique(string(datestr(option_put_1to3week.date,'yyyymm')));
+% % % % % option_put_4week = option_put(((option_put.tau>=27) & (option_put.tau<=33)), :);
+% % % % % [uniqueDates_4week, ~, idx_4week] = unique(string(datestr(option_put_4week.date,'yyyymm')));
+% % % % % option_put_longmaturity = option_put(((option_put.tau>33)), :);
+% % % % % [uniqueDates_longmaturity, ~, idx_longmaturity] = unique(string(datestr(option_put_longmaturity.date,'yyyymm')));
+% % % % % %% 2-by-2 quantity across time with different tau -- PUT OPTION
+% % % % % 
+% % % % % % 1week
+% % % % % quantity_1week = accumarray(idx_1week, option_put_1week.quantity, [], @sum);
+% % % % % quantity_average_1week = quantity_1week ./ daysInMonth;
+% % % % % % figure;
+% % % % % subplot(2,2,1)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1week./quantity_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily quantity')
+% % % % % title('BTC 1-week tau put options')
+% % % % % xticks(datetime(strcat(uniqueDates_1week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 1 to 3 weeks: 9<tau<27
+% % % % % quantity_1to3week = accumarray(idx_1to3week, option_put_1to3week.quantity, [], @sum);
+% % % % % quantity_average_1to3week = quantity_1to3week ./ daysInMonth;
+% % % % % subplot(2,2,2)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1to3week./quantity_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1to3week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), quantity_average_1to3week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily quantity')
+% % % % % title('BTC 1-to-3week-maturity put options')
+% % % % % xticks(datetime(strcat(uniqueDates_1to3week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 4week
+% % % % % quantity_4week = accumarray(idx_4week, option_put_4week.quantity, [], @sum);
+% % % % % quantity_average_4week = quantity_4week ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,3)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), quantity_average_4week./quantity_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), quantity_average_4week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), quantity_average_4week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily quantity')
+% % % % % title('BTC 4-week put options')
+% % % % % xticks(datetime(strcat(uniqueDates_4week(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % more than 4 weeks: 33<tau
+% % % % % quantity_longmaturity = accumarray(idx_longmaturity, option_put_longmaturity.quantity, [], @sum);
+% % % % % quantity_average_longmaturity = quantity_longmaturity ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,4)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), quantity_average_longmaturity./quantity_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), quantity_average_longmaturity, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), quantity_average_longmaturity, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily quantity')
+% % % % % title('BTC longmaturity put options')
+% % % % % xticks(datetime(strcat(uniqueDates_longmaturity(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % set(gcf,'Position',[100,100,1200,900])
+% % % % % saveas(gcf,"Summary_stats/1_3_5/quantity_and_percentage_put.png")
+% % % % % 
+% % % % % %% 2-by-2 transaction across time with different tau -- PUT OPTION
+% % % % % % 1week
+% % % % % transaction_1week = accumarray(idx_1week, ones(size(option_put_1week.quantity)), [], @sum);
+% % % % % transaction_average_1week = transaction_1week ./ daysInMonth;
+% % % % % % figure;
+% % % % % subplot(2,2,1)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1week./transaction_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily transactions')
+% % % % % title('BTC 1-week put options')
+% % % % % xticks([datetime(strcat(uniqueDates_1week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 1 to 3 weeks
+% % % % % transaction_1to3week = accumarray(idx_1to3week, ones(size(option_put_1to3week.quantity)), [], @sum);
+% % % % % transaction_average_1to3week = transaction_1to3week ./ daysInMonth;
+% % % % % subplot(2,2,2)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1to3week./transaction_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1to3week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), transaction_average_1to3week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily transactions')
+% % % % % title('BTC 1-to-3week-maturity put options')
+% % % % % xticks([datetime(strcat(uniqueDates_1to3week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 4week
+% % % % % transaction_4week = accumarray(idx_4week, ones(size(option_put_4week.quantity)), [], @sum);
+% % % % % transaction_average_4week = transaction_4week ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,3)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), transaction_average_4week./transaction_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), transaction_average_4week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), transaction_average_4week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily transactions')
+% % % % % title('BTC 4-week put options')
+% % % % % xticks(datetime(strcat(uniqueDates_4week(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % long maturity
+% % % % % transaction_longmaturity = accumarray(idx_longmaturity, ones(size(option_put_longmaturity.quantity)), [], @sum);
+% % % % % transaction_average_longmaturity = transaction_longmaturity ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,4)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), transaction_average_longmaturity./transaction_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), transaction_average_longmaturity , '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), transaction_average_longmaturity , 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily transactions')
+% % % % % title('BTC longmaturity-maturity put options')
+% % % % % xticks([datetime(strcat(uniqueDates_longmaturity(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % set(gcf,'Position',[100,100,1200,900])
+% % % % % sgtitle("Transaction and percentage of put options")
+% % % % % saveas(gcf,"Summary_stats/1_3_5/transaction_and_percentage_put.png")
+% % % % % 
+% % % % % %% 2-by-2 volume across time with different tau -- PUT OPTION
+% % % % % % 1week
+% % % % % volume_1week = accumarray(idx_1week, option_put_1week.quantity.*option_put_1week.option_price, [], @sum);
+% % % % % volume_average_1week = volume_1week ./ daysInMonth;
+% % % % % % figure;
+% % % % % subplot(2,2,1)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), volume_average_1week./volume_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), volume_average_1week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1week,'01'),'InputFormat','uuuuMMdd'), volume_average_1week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC 1-week put options')
+% % % % % xticks([datetime(strcat(uniqueDates_1week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 1 to 3 weeks
+% % % % % volume_1to3week = accumarray(idx_1to3week, option_put_1to3week.quantity.*option_put_1to3week.option_price, [], @sum);
+% % % % % volume_average_1to3week = volume_1to3week ./ daysInMonth;
+% % % % % subplot(2,2,2)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), volume_average_1to3week./volume_average_daily, 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), volume_average_1to3week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_1to3week,'01'),'InputFormat','uuuuMMdd'), volume_average_1to3week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC 1-to-3week-maturity put options')
+% % % % % xticks([datetime(strcat(uniqueDates_1to3week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % 4week
+% % % % % volume_4week = accumarray(idx_4week, option_put_4week.quantity.*option_put_4week.option_price, [], @sum);
+% % % % % volume_average_4week = volume_4week ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,3)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), volume_average_4week./volume_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), volume_average_4week, '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_4week,'01'),'InputFormat','uuuuMMdd'), volume_average_4week, 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC 4-week put options')
+% % % % % xticks(datetime(strcat(uniqueDates_4week(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd'));
+% % % % % dateaxis('x',12)
+% % % % % 
+% % % % % % long maturity
+% % % % % volume_longmaturity = accumarray(idx_longmaturity, option_put_longmaturity.quantity.*option_put_longmaturity.option_price, [], @sum);
+% % % % % volume_average_longmaturity = volume_longmaturity ./ daysInMonth(1:end-2);
+% % % % % subplot(2,2,4)
+% % % % % yyaxis right
+% % % % % bar(datetime(strcat(uniqueDates_longmaturity,'01'),'InputFormat','uuuuMMdd'), volume_average_longmaturity./volume_average_daily(1:end-2), 0.8, 'FaceAlpha',0.3);
+% % % % % ylabel('Percentage of put BTC options')
+% % % % % yyaxis left
+% % % % % plot(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), volume_average_longmaturity , '-',...
+% % % % %     'LineWidth', 2);hold on
+% % % % % scatter(datetime(strcat(uniqueDates_longmaturity ,'01'),'InputFormat','uuuuMMdd'), volume_average_longmaturity , 20, ...
+% % % % %     [0 0.4470 0.7410],'Filled');hold off
+% % % % % ylabel('Average daily volume')
+% % % % % title('BTC longmaturity-maturity put options')
+% % % % % xticks([datetime(strcat(uniqueDates_longmaturity(round(linspace(1,66-2,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % dateaxis('x',12)
+% % % % % set(gcf,'Position',[100,100,1200,900])
+% % % % % sgtitle("Value and percentage of put options")
+% % % % % saveas(gcf,"Summary_stats/1_3_5/volume_and_percentage_put.png")
+% % % % % % 
+% % % % % % %% stacked bar
+% % % % % % monthlyVolume1 = volume_average_1week(1:(end-2));
+% % % % % % monthlyVolume2 = volume_average_1to3week(1:(end-2));
+% % % % % % monthlyVolume3 = volume_average_4week;
+% % % % % % monthlyVolume4 = volume_average_longmaturity;
+% % % % % % date_monthly = datetime(strcat(uniqueDates(1:(end-2)),'01'),'InputFormat','uuuuMMdd');
+% % % % % % figure;
+% % % % % % bar(date_monthly, [monthlyVolume1, monthlyVolume2, monthlyVolume3, monthlyVolume4], 'stacked');
+% % % % % % ylabel('Trading Volume');
+% % % % % % title('Monthly Trading Volume and Proportion of options');
+% % % % % % legend('\tau<=9', '9<\tau<27', '27<=<\tau<=33', '\tau>33','Location','northwest');
+% % % % % % xticks([datetime(strcat(uniqueDates_1week(round(linspace(1,66,9))),'01'),'InputFormat','uuuuMMdd')])
+% % % % % % dateaxis('x',12)
+% % % % % % % Add percentage labels to the bars
+% % % % % % totals = monthlyVolume1 + monthlyVolume2 + monthlyVolume3 + monthlyVolume4;
+% % % % % % percent1 = monthlyVolume1 ./ totals;
+% % % % % % percent2 = monthlyVolume2 ./ totals;
+% % % % % % percent3 = monthlyVolume3 ./ totals;
+% % % % % % percent4 = monthlyVolume4 ./ totals;
+% % % % % % percent = [percent1, percent2, percent3, percent4];
+% % % % % % monthlyTotalVolume = monthlyVolume1+ monthlyVolume2+ monthlyVolume3+ monthlyVolume4;
+% % % % % % monthlyAvgVolume = trading_quantity_average(1:(end-2));
+% % % % % % % for i = 1:length(date_monthly)
+% % % % % % %     x = date_monthly(i);
+% % % % % % %     y = monthlyTotalVolume(i);
+% % % % % % %     txt = sprintf('%.1f%%\n%.2f', percent(i,:)*100, monthlyAvgVolume(i));
+% % % % % % %     text(x, y, txt, 'HorizontalAlignment','center','VerticalAlignment','bottom')
+% % % % % % % end
+% % % % % % saveas(gcf,"Summary_stats/1_3_5/Daily_average_quantity_and_proportion.png")
+% % % % % %% moneyness range
+% % % % % % figure;
+% % % % % % yyaxis left
+% % % % % % plot(option.date,log(option.moneyness),'.')
+% % % % % % ylabel('Log moneyness: log(K/S_\tau)')
+% % % % % % yyaxis right
+% % % % % % plot(BTC_Dvol.date,BTC_Dvol.index,'-')
+% % % % % % ylabel('BTC volatility index')
+% % % % % % xticks(datetime(unique_date(round(linspace(1,1996,10)))));
+% % % % % % xticklabels(datestr(unique_date(round(linspace(1,1996,10))),'mmmyy'))
+% % % % % 
+% % % % % % figure;
+% % % % % % plot(option.date,log(option.moneyness),'.')
+% % % % % % ylabel('Log moneyness: log(K/S_\tau)')
+% % % % % % xticks(datetime(unique_date(round(linspace(1,1996,10)))));
+% % % % % % xticklabels(datestr(unique_date(round(linspace(1,1996,10))),'mmmyy'))
+% % % % % % saveas(gcf,"Summary_stats/1_3_5/Moneyness_range.png")
+% % % % % 
+
 %% sort by date, putcall, K
 [~,I]=sortrows(option,["date","putcall","K"]);
 option1 = option(I,:);

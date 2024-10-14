@@ -1,6 +1,0 @@
-Cluster,Group,Equally_Average,Weighted_Average,Num_obs
-Long Straddle simple Overall,"(-Inf,0.2]",-22.47,-38.46,9
-Long Straddle simple Overall,"(0.2,0.35]",-66.26,-78.89,4
-Long Straddle simple Overall,"(0.35,0.65]",-16.97,-56.58,28
-Long Straddle simple Overall,"(0.65,0.8]",-46.12,-55.99,11
-Long Straddle simple Overall,"(0.8, Inf)",-35.17,-36.23,15

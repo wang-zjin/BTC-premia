@@ -1,6 +1,0 @@
-Cluster,Group,Equally_Average,Weighted_Average,Median_Return,Std_Dev,Max,Min,Num_obs
-Long Call simple Cluster0,"(0.8, Inf)",37.58,32.47,35.29,21.4,128.13,-56.08,82
-Long Call simple Cluster0,"(0.55,0.8]",-6.63,32.56,-83.4,100.45,176.98,-100,152
-Long Call simple Cluster0,"(0.45,0.55]",-6.82,-45.41,-32.34,87.02,244.02,-100,324
-Long Call simple Cluster0,"(0.2,0.45]",-80.44,-80.66,-100,71.83,259.3,-100,714
-Long Call simple Cluster0,"(-Inf,0.2]",-97.91,-93.72,-100,12.15,-22.89,-100,795
