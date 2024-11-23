@@ -5,17 +5,17 @@ import pandas as pd
 import os
 from scipy.stats.mstats import gmean
 from matplotlib.colors import ListedColormap
-
+# ========================================================================================================
+#data preprocessing, dimensionality reduction using UMAP, and visualization of results in 2D and 3D.
+# ========================================================================================================
 
 path="/Users/ratmir/Desktop/Clustering Zijin"
 os.chdir(path)
-
 # Load the .csv files into Pandas DataFrames
 df1 = pd.read_csv('Q_matrix_5day_0d15.csv')
 df2 = pd.read_csv('Q_matrix_9day_0d15.csv')
 df3 = pd.read_csv('Q_matrix_14day_0d15.csv')
 df4 = pd.read_csv('Q_matrix_27day_0d15.csv')
-
 
 #Transformation
 def clr(x):
@@ -23,13 +23,10 @@ def clr(x):
 
 df1_clr = clr(df1.drop(['Return'], axis=1))
 df1_clr = df1_clr.transpose()
-
 df2_clr = clr(df2.drop(['Return'], axis=1))
 df2_clr = df2_clr.transpose()
-
 df3_clr = clr(df3.drop(['Return'], axis=1))
 df3_clr = df3_clr.transpose()
-
 df4_clr = clr(df4.drop(['Return'], axis=1))
 df4_clr = df4_clr.transpose()
 
@@ -38,8 +35,6 @@ df1_clr = df1_clr.loc[df1_clr.index.isin(row_names)]
 df2_clr = df2_clr.loc[df2_clr.index.isin(row_names)]
 df3_clr = df3_clr.loc[df3_clr.index.isin(row_names)]
 df4_clr = df4_clr.loc[df4_clr.index.isin(row_names)]
-
-
 
 # Replace this with your data; generating random data for demonstration
 data1 = df1_clr
@@ -76,44 +71,34 @@ labels = 1 - labels # Now 1 corresponds to C1 and 0 corresponds to C0.
 
 # Create a custom colormap
 cmap = ListedColormap(['blue', 'red']) # 0-> blue; 1-> red
-
-
 n_neighbors_values = [10, 30, 50, 100, 150]
 min_dist_values = [0, 0.1, 0.2, 0.3, 0.4]
-
-#n_neighbors_values = [10, 30]
-#min_dist_values = [0, 0.1]
-
 data_combined = pd.concat([data1, data2, data3, data4], axis=1)
 
 
+# ==========================================================
+# Loop over all combinations of n_neighbors and min_dist
+# and create a separate plot for each combination
+# Then decide for one combination and create a single plot
+# ==========================================================
 
 for i, (n_neighbors, min_dist) in enumerate([(n, d) for n in n_neighbors_values for d in min_dist_values]):
     print(f"Processing n_neighbors={n_neighbors}, min_dist={min_dist}...")
-
     # Create a UMAP reducer object with the desired parameters
     reducer = UMAP(n_neighbors=n_neighbors, min_dist=min_dist)
-
     # Fit the reducer to your data and transform it to a 2D space
     embedding = reducer.fit_transform(data_combined)
-
     # Creating a single plot
     fig, ax = plt.subplots(figsize=(10, 10))
-
     # Plotting the embeddings on the single plot with larger, more visible dots
     scatter = ax.scatter(embedding[:, 0], embedding[:, 1], c=labels, cmap=cmap, s=50, alpha=0.7, edgecolors='w')
-
     # Set titles and labels with a larger font size
     ax.set_title(f'n_neighbors: {n_neighbors}, min_dist: {min_dist}', fontsize=16)
     ax.set_xlabel('UMAP 1st component', fontsize=14)
     ax.set_ylabel('UMAP 2nd component', fontsize=14)
-
     # Making grid and axis ticks less pronounced for a cleaner look
     ax.grid(linestyle='--', linewidth=0.5)
     ax.tick_params(axis='both', which='major', labelsize=12)
-
-    # Additional labeling, legends, etc. can be added here
-
     # Saving and closing the figure
     plt.tight_layout()
     plt.savefig(f'singleplot_{i}.png')  # Save the plot as a PNG file
@@ -121,25 +106,18 @@ for i, (n_neighbors, min_dist) in enumerate([(n, d) for n in n_neighbors_values 
 
 
 
-
-
-# Specify the UMAP reducer with 3 components
+# Specify the UMAP reducer with 3 components. Do not change the parameters. These two seem to work well!
 reducer = UMAP(n_neighbors=100, min_dist=0.2, n_components=3)
-
 # Fit the reducer to your data and transform it to a 3D space
 embedding = reducer.fit_transform(data_combined)
-
 # Plot the results in a 3D plot
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(embedding[:, 0], embedding[:, 1], embedding[:, 2], c=labels, cmap=cmap, s=30, alpha=0.7, edgecolors='w')
-
 ax.set_xlabel('UMAP 1')
 ax.set_ylabel('UMAP 2')
 ax.set_zlabel('UMAP 3')
-
 ax.set_title(f'n_neighbors: {100}, min_dist: {0.2}', fontsize=16)
-
 plt.show()
 
 
