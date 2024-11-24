@@ -10,7 +10,7 @@ from mpl_toolkits.mplot3d import Axes3D
 # Initialize a list to save results
 results_list = []
 thetas_dict = {}
-# Folder for plots
+# Folder path for plots
 plots_folder = "/home/RDC/miftachr/H:/miftachr/SVI"
 if not os.path.exists(plots_folder):
     os.makedirs(plots_folder)
@@ -70,7 +70,7 @@ def process_csv_file(filename):
                 iv_model_val = svi_model(theta, k_grid[i, j], tau_grid[i, j]) / tau_grid[i, j]
 
                 if iv_model_val < -epsilon:
-                    penalty += 100000  # Adjust this value if necessary
+                    penalty += 100000  # Large value. Don't change.
                     iv_model_grid[i, j] = 0
                 else:
                     iv_model_grid[i, j] = np.sqrt(max(iv_model_val, 0))
@@ -83,7 +83,7 @@ def process_csv_file(filename):
     k = df.iloc[0, :].to_numpy()
 
     # Generate a grid of strike prices for interpolation
-    k_new = np.linspace(k.min(), k.max(), 100)  # finer grid of log moneyness
+    k_new = np.linspace(k.min(), k.max(), 100)  # Grid of log moneyness
 
     # Interpolate IVs at new strike prices for each ttm
     iv_new = np.empty((len(ttm), len(k_new)))
@@ -154,12 +154,10 @@ def process_csv_file(filename):
 
     max_iterations = 4  # set some max number of iterations to avoid infinite loops
     iteration_count = 0
-    # Example bounds for 10 parameters
+    # bounds for 10 parameters. Do not change!
     bounds = [(-4, 4), (-50, 18), (-2, 2), (-2, 2), (-0.5, 1), (-50, 50), (-50, 50), (-2, 2), (-2, 2), (-2, 0.5)]
-    # Convert bounds to numpy arrays for vectorized operations
     lower_bounds = np.array([bound[0] for bound in bounds])
     upper_bounds = np.array([bound[1] for bound in bounds])
-
 
     while iteration_count < max_iterations:
         iteration_count += 1
