@@ -10,7 +10,7 @@ from mpl_toolkits.mplot3d import Axes3D
 results_list = []
 thetas_dict = {}
 
-# Set the Local Folder path
+# Set some Local Folder path
 plots_folder = "/home/RDC/miftachr/H:/miftachr/SVI"
 if not os.path.exists(plots_folder):
     os.makedirs(plots_folder)
@@ -229,7 +229,7 @@ def process_csv_file(filename):
 
     thetas_dict[filename] = best_thetas
 
-# Path for the IV Matrix files for each day
+# Path to read in the IV Matrix files for each day. Use the IR0 folder in the github.
 path = "/home/RDC/miftachr/H:/miftachr/SVI/IR0"
 os.chdir(path)
 
@@ -250,6 +250,6 @@ df_thetas = pd.DataFrame(thetas_dict).T
 # Name columns as per the SVI model parameters
 df_thetas.columns = ['a', 'b', 'rho', 'm', 'sigma', 'a_ttm', 'b_ttm', 'rho_ttm', 'm_ttm', 'sigma_ttm']
 
-# Save the results to CSV
+# Save the results to CSV. Use some local folder of yours.
 df_thetas.to_csv('/home/RDC/miftachr/H:/miftachr/SVI/paras5b.csv', index=True)
 results_df.to_csv('/home/RDC/miftachr/H:/miftachr/SVI/svi_iv_and_r2_results5b.csv', index=False)

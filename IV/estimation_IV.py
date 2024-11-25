@@ -7,20 +7,26 @@ import os
 import pandas as pd
 import numpy as np
 
+###############################################################################################################
+################START OF MAIN CODE###############################################################################
+###############################################################################################################
+
+
 # This code gets the implied volatility surface using the estimated SVI coefficients.
 # Some other stuff can be done when the cluster dates are used, but this is not of main interest in this code
 # and I do not remember what it was used for.
 
+# Path to read in the IV Matrix files for each day. Use the IR0 folder in the github.
 path="/Users/ratmir/Downloads/testttm/update/IR0"
 #path="/Users/ratmir/Downloads/testttm/IV_matrix_IR0"
 
 os.chdir(path)
-#This is the input from the SVI estimation, that we got from automate.py:
+#This is the input from the SVI estimation, that we got from estimate_SVI_coefficients_each_day.py:
 df1 = pd.read_csv('svi_iv_and_r2_results5.csv')
 df2 = pd.read_csv('paras5.csv')
+
 #C1 = pd.read_csv('dates_cluster1.csv')
 #C0 = pd.read_csv('dates_cluster0.csv')
-
 
 
 #these .pngs should be deleted
@@ -55,7 +61,7 @@ def svi_model(theta, k, tau):
     return a + b * (rho * (k - m) + np.sqrt((k - m) ** 2 + sigma ** 2))
 
 
-#You have to change the range of k_new, if you want to have a different range.
+#You have to change the range of k_new, if you want to have a different range. Maybe this is what you want Zijin:
 k_new = np.linspace(-0.15, 0.15, 100)
 all_IVs = pd.DataFrame()
 all_IVs_list = []
@@ -100,6 +106,7 @@ all_IVs.to_csv('interpolated_IV5_098.csv', index=False)
 
 ###############################################################################################################
 ################END OF MAIN CODE###############################################################################
+###############################################################################################################
 
 # For clusters:
 all_IVs['Date'] = pd.to_datetime(all_IVs['Date'])
