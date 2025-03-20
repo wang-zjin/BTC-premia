@@ -24,7 +24,7 @@ Q_P_overall_ttm27=readtable("RiskPremia/Tau-independent/unique/moneyness_step_0d
 ret_simple=BP_c0_ttm27.Returns; % Extract simple returns for plotting
 
 %% Plot BP overall
-shadow_x_negative = [-0.6, -0.3];
+shadow_x_negative = [-0.6, -0.2];
 shadow_x_positive = [0.2, 0.6];
 
 BP = BP_overall_ttm27.BP_NB12;
@@ -69,7 +69,7 @@ AKA_sub2 = -gradient(PKlog_sub2, ret_sub2);
 disp([mean(AKA_sub1),mean(AKA_sub2)])
 
 %% Plot BP for HV cluster 
-shadow_x_negative = [-0.6, -0.3];
+shadow_x_negative = [-0.6, -0.2];
 shadow_x_positive = [0.2, 0.6];
 
 BP = BP_c0_ttm27.BP_NB12;
@@ -116,7 +116,7 @@ AKA_sub2 = -gradient(PKlog_sub2, ret_sub2);
 disp([mean(AKA_sub1),mean(AKA_sub2)])
 
 %% Plot BP for LV cluster
-shadow_x_negative = [-0.6, -0.3];
+shadow_x_negative = [-0.6, -0.2];
 shadow_x_positive = [0.2, 0.6];
 
 BP = BP_c1_ttm27.BP_NB12;
@@ -166,7 +166,7 @@ disp([mean(AKA_sub1),mean(AKA_sub2)])
 %% Report
 Influential_return_state_table = [OA;HV;LV];
 info.rnames = strvcat('.','OA','HV','LV');
-info.cnames = strvcat('BP(-0.3)-BP(-0.6)','int_-0.6^-0.3p','q/p','BP(0.6)-BP(0.2)','int_0.2^0.6p','q/p');
+info.cnames = strvcat('BP(-0.2)-BP(-0.6)','int_-0.6^-0.2p','q/p','BP(0.6)-BP(0.2)','int_0.2^0.6p','q/p');
 info.fmt    = '%10.3f';
 disp('Influential return state table')
 mprint(Influential_return_state_table,info)
@@ -174,7 +174,7 @@ mprint(Influential_return_state_table,info)
 %% Report
 Influential_return_state_table = [OA1;HV1;LV1];
 info.rnames = strvcat('.','OA','HV','LV');
-info.cnames = strvcat('BP(-0.3)-BP(-0.6)','int_-0.6^-0.3p','int_-0.6^-0.3q','q/p','BP(0.6)-BP(0.2)','int_0.2^0.6p','int_-0.6^-0.2q','q/p');
+info.cnames = strvcat('BP(-0.2)-BP(-0.6)','int_-0.6^-0.2p','int_-0.6^-0.2q','q/p','BP(0.6)-BP(0.2)','int_0.2^0.6p','int_-0.6^-0.2q','q/p');
 info.fmt    = '%10.3f';
 disp('Influential return state table')
 mprint(Influential_return_state_table,info)
@@ -183,7 +183,7 @@ mprint(Influential_return_state_table,info)
 Influential_return_state_table = [OA2;HV2;LV2];
 info.rnames = strvcat('.','OA','HV','LV');
 % info.cnames = strvcat('BP(-0.2)-BP(-0.6)','|int_log(pk)|','BP(0.6)-BP(0.2)','|int_log(pk)|');
-info.cnames = strvcat('BP(-0.3)-BP(-0.6)','|int_pk|','|int_pk|/0.3','BP(0.6)-BP(0.2)','|int_pk|','|int_pk|/0.4');
+info.cnames = strvcat('BP(-0.2)-BP(-0.6)','|int_pk|','|int_pk|/0.3','BP(0.6)-BP(0.2)','|int_pk|','|int_pk|/0.4');
 info.fmt    = '%10.3f';
 disp('Influential return state table')
 mprint(Influential_return_state_table,info)
