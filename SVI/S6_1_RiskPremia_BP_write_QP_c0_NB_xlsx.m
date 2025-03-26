@@ -63,12 +63,7 @@ writetable(outtable, "RiskPremia/moneyness/Bitcoin_Premium/BP_SCA_ePDF_backward_
 outtable = array2table([ret, Q_average, P_simple_different_NB], ...
     'VariableNames',["Returns","Q_cluster0","P_NB6","P_NB7","P_NB8","P_NB9","P_NB10","P_NB11","P_NB12","P_NB13","P_NB14","P_NB15"]);
 writetable(outtable, "RiskPremia/moneyness/Bitcoin_Premium/Q_P_ePDF_backward_onlyVR_HV_differentNB_ttm27.xlsx")
-%% print summary statistics of return full sample
-clear info;
-info.rnames = strvcat('.','TTM 27');
-info.cnames = strvcat('Mean','Std.','Min','Max','25% percentile','75% percentile','Obs.');
-info.fmt    = '%10.4f';
-mprint(Summary_return_fullsample,info)
+
 %% functions
 % Below are the custom functions used for various calculations like scaling PDF, calculating BP, and calculating forward/backward returns.
 function f = scale_PDF(ret,f)
